@@ -15,7 +15,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         try (Connection connection = Util.getSQLConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE user" +
+             PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user" +
                      "(id INT primary key auto_increment," + "name VARCHAR(15)," +
                      "lastname VARCHAR(15)," +
                      "age TINYINT)");
@@ -28,7 +28,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void dropUsersTable() {
         try (Connection connection = Util.getSQLConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("drop table user")
+             PreparedStatement preparedStatement = connection.prepareStatement("drop table IF EXISTS user")
         ) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
